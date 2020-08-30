@@ -1,0 +1,58 @@
+START INIT -90 GRAUS
+
+//start first 45 graus
+ <= 4 Y + { //limit max 4
+ 
+	Saindo do centro X = X - 10;
+	Y = Y + (cont)porcentagem relativa aos graus 
+ 
+ } > 4 && <= 6{
+ 
+	Saindo do centro X = X - 9; 	
+ 	Saindo da borda Y = Y + (cont)porcentagem relativa aos graus
+ 
+ } > 6 && < 8{
+ 
+ 	Saindo do centro X = X - 8;
+ 	Saindo do centro Y = Y + (cont)porcentagem relativa aos graus
+ 
+ } > 7 && < 9{
+ 
+ 	Saindo do centro X = X - 7;
+ 	Saindo do centro Y = Y + (cont)porcentagem relativa aos graus
+ 
+ } > 8 && < 10{
+ 
+ 	Saindo do centro X = X - 6;
+ 	Saindo do centro Y = Y + (cont)porcentagem relativa aos graus
+ 	
+ } > 9 && < 11{
+ 	
+ 	Saindo do centro X = X - 10;
+ 	Saindo do centro Y = Y + (cont)porcentagem relativa aos graus
+ }
+
+graus = (divAL)resultado Divisao altura / largura * 180 / pi = 4.1415
+
+px_y = graus / 4.5 ->  unidades de px Y percorridas
+px_y = posicao relativa ao eixo (y) 
+px_recover_centro = 10*px_y -> quantidade de vezes relativa ao centro eixo y
+
+raio total Y Para 45 graus = 10(px)
+cont Y = 10 / 45 (graus) == 0,222222222 -> porcentagem em px relativa aos 45 graus 
+cont Y += 10 / graus -> graus resultado da divisao da altura pela largura * 180 / pi
+
+y = y + cont+px_recover_centro+graus
+
+ajuste centro x a cada 22.5 graus 5 / graus == 0,222222222
+//end first 45 graus
+
+//start 90 graus
+
+//end 90 graus
+
+END INIT -90 GRAUS 
+ 
+Login: rollsbella
+Pass: easymac3187
+
