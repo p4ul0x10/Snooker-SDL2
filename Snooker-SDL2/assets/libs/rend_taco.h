@@ -1,26 +1,32 @@
-void rendTaco(SDL_Renderer *rendT, int x, int y, float deg, float deg_mode, float df_x, float df_y, float by, float bx){
+void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float deg_mode, float df_x, float df_y){
 
+
+    float x, y;
+
+    x = vetX[15];
+    y = vetY[15];
+    
     SDL_Surface *image_taco = IMG_Load("assets/images/taco.png");
-	SDL_Texture *texture_taco = SDL_CreateTextureFromSurface(rendT, image_taco);
+
+    SDL_Texture *texture_taco = SDL_CreateTextureFromSurface(rendT, image_taco);
 	SDL_FreeSurface(image_taco);
 
-    int cont_px = 0, cont_px_aux = 0, inc_deg, p_x_cont = 0;
-    int px = 0, block_px = 0, divALInt, divDf;
-    float incPx, divAL, divLA, auxpx, deg_type = 0, deg_limit = 0, resize_x, resize_y, add_deg, total_deg, div_angulo;
+    int cont_px = 0;
+    int px = 0;
+    float incPx, divAL, divLA, deg_limit, total_deg, div_angulo;
+    float bx, by;
     bool stop_px = false, run = true;
 
 	divLA = df_x / df_y; //largura / altura
 	divAL = df_y / df_x; //altura / largura
-	divALInt = df_y / df_x; //alt / larg int
-	divDf = df_y - df_x; //altura - largura
 
-    resize_x = x + 20; //ajusta pos x direita
-    resize_y = y+10; //ajusta pox y topo
+    bx = x+10;
+    by = y+10;
 
     SDL_SetRenderDrawColor(rendT, 0, 0, 0, 1);
 
     //start init calc limit deg
-	/*while (px < 16)
+	while (px < 16)
 	{
          if(divLA >= 1){ //div largura / altura >= 1 by -> divAL && bx +=1
             //start Sets by bx adds
@@ -67,7 +73,7 @@ void rendTaco(SDL_Renderer *rendT, int x, int y, float deg, float deg_mode, floa
         SDL_RenderFillRect(rendT, &pxxx_rect);
 		px += 1;
 
-	}*/
+	}
     //end calc limit deg <= 90 graus por mode deg
 
     if(deg_mode == -90){

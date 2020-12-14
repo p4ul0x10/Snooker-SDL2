@@ -1,5 +1,5 @@
-void loadMesa(SDL_Renderer *renderer)
-{
+void loadMesa(SDL_Renderer *renderer){
+
 	SDL_Surface *image_mesa = IMG_Load("assets/images/mesa-edt.png");
 
 	SDL_Texture *texture_mesa = SDL_CreateTextureFromSurface(renderer, image_mesa);
@@ -14,8 +14,8 @@ void loadMesa(SDL_Renderer *renderer)
     SDL_DestroyTexture(texture_mesa);
 }
 
-void bolaBranca(SDL_Renderer *renderer, float x, float y)
-{
+void bolaBranca(SDL_Renderer *renderer, float x, float y){
+
 	SDL_Surface *image_branca = IMG_Load("assets/images/bm.png");
 
 	SDL_Texture *texture_branca = SDL_CreateTextureFromSurface(renderer, image_branca);
@@ -32,15 +32,16 @@ void bolaBranca(SDL_Renderer *renderer, float x, float y)
 	SDL_DestroyTexture(texture_branca);
 }
 
-void rendFor(SDL_Renderer *rendForca, int f)
-{
-	SDL_SetRenderDrawColor(rendForca, 255, 255, 255, 1);
+void rendFor(SDL_Renderer *rendFor, float f){
 
-	int forca = 0, conty, y = 455, add_b = 5;
+	SDL_SetRenderDrawColor(rendFor, 255, 255, 255, 1);
+
+	int fs = 0, conty, y = 455, add_b = 5;
 
 	if(f > 0){
-		for (forca = 0; forca < f; forca++)
-		{
+
+		for (fs = 0; fs < f; fs++){
+
 			y += add_b;
 			SDL_Rect f_rect;
 
@@ -49,15 +50,15 @@ void rendFor(SDL_Renderer *rendForca, int f)
 			f_rect.x = 810;
 			f_rect.y = y;
 
-			SDL_RenderDrawRect(rendForca, &f_rect);
-			SDL_RenderFillRect(rendForca, &f_rect);
+			SDL_RenderDrawRect(rendFor, &f_rect);
+			SDL_RenderFillRect(rendFor, &f_rect);
 
 		}
 	}
 }
 
-void playJogada(SDL_Renderer *rendPlay, int x, int y, int deg_cont)
-{
+void playJogada(SDL_Renderer *rendPlay, int x, int y, int deg_cont){
+
 	SDL_Surface *image_branca = IMG_Load("assets/images/bm.png");
 
 	SDL_Texture *texture_play = SDL_CreateTextureFromSurface(rendPlay, image_branca);
@@ -73,9 +74,7 @@ void playJogada(SDL_Renderer *rendPlay, int x, int y, int deg_cont)
 	SDL_DestroyTexture(texture_play);
 }
 
-
 void rendMiraDest(SDL_Renderer *rendDest, float mouseX, float mouseY){
-
 
     SDL_Surface *image_Dest = IMG_Load("assets/images/bm_dest.png");
 
@@ -90,4 +89,22 @@ void rendMiraDest(SDL_Renderer *rendDest, float mouseX, float mouseY){
 	image_Dest_rect.y = mouseY;
 	SDL_RenderCopy(rendDest, texture_mira, NULL, &image_Dest_rect);
     SDL_DestroyTexture(texture_mira);
+}
+
+void rendHand(SDL_Renderer *rendHand, float x, float y){
+
+	SDL_Surface *image_Dest = IMG_Load("assets/images/hand.png");
+
+	SDL_Texture *texture_hand = SDL_CreateTextureFromSurface(rendHand, image_Dest);
+	SDL_FreeSurface(image_Dest);
+
+	SDL_Rect hand_Dest_rect;
+
+	hand_Dest_rect.w = 25;
+	hand_Dest_rect.h = 25;
+	hand_Dest_rect.x = x;
+	hand_Dest_rect.y = y;
+
+	SDL_RenderCopy(rendHand, texture_hand, NULL, &hand_Dest_rect);
+    SDL_DestroyTexture(texture_hand);	
 }
