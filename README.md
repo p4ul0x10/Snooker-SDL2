@@ -10,6 +10,8 @@ SPACE - > decrement force
 J - > play round
 B - > return white ball 
 R - > reset triangle
+UP - > effect y 
+DOWN - > effect y
 #####
 
 Code by: s3r3n0s group
