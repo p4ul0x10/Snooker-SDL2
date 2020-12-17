@@ -321,7 +321,7 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 	//start effect check point x, y
 
 	//start check percent y top or bottom 
-	/*if(ey[0] < 485){ //center -
+	if(ey[0] < 485){ //center -
 
     	calc_df_efy = 465 - ey[0]; // min size (465 px) - size px now
     	percent_efy = (calc_df_efy / 20) * 100;
@@ -360,8 +360,6 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 	}
 	//end check percent x left or right
 
-	check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);*/
-
 	//end effect check point x, y
 	if(m[m1] == 0){ //-y +x
 
@@ -371,57 +369,84 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){ //init (dst) pos x > init (dst) pos y
+				if(mode_ey[0] == 'n' && mode_ex[0] == 'n'){
+					
+					if(check_ix >= check_iy){ //init (dst) pos x > init (dst) pos y
 
-					m[m1] = 0; // +y +x 					
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
+						m[m1] = 0; // +y +x 					
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+
+					}else{
+					
+						m[m1] = 2; //-y -x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
 
 				}else{
-					
-					m[m1] = 2; //-y -x
+
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
-				}	
-				
+				}
+
 				m[m2] = 0; // -y +x
 
 			}else if(center_x1 <= center_x2 && center_y1 < center_y2){
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){
-					
-					m[m1] = 0; //-y +x 
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
 
+					if(check_ix >= check_iy){
+						
+						m[m1] = 0; //-y +x 
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+
+					}else{
+
+						m[m1] = 2; //-y -x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
+				
 				}else{
 
-					m[m1] = 2; //-y -x
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
-
+				
 				m[m2] = 3; // -y +x
 
 			}else if(center_x1 > center_x2 && center_y1 >= center_y2){
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+
+					if(check_ix >= check_iy){
 				
-					m[m1] = 3; // +x +y 
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
+						m[m1] = 3; // +x +y 
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+
+					}else{
+				
+						m[m1] = 0; // -y +x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
 
 				}else{
-				
-					m[m1] = 0; // -y +x
+
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
-				
+
 				m[m2] = 2; // -y -x
 			}
 
@@ -442,34 +467,52 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+
+					if(check_ix >= check_iy){
+						
+						m[m1] = 2; //-y -x
+						ini_x[m1] = x[m1];
+						ini_y[m2] = y[m1];
 					
-					m[m1] = 2; //-y -x
-					ini_x[m1] = x[m1];
-					ini_y[m2] = y[m1];
-				
+					}else{
+
+						m[m1] = 3; //+y +x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
+
 				}else{
 
-					m[m1] = 3; //+y +x
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
-				
+
 				m[m2] = 1; // +y -x
 
 			}else if(center_x1 >= center_x2 && center_y1 > center_y2){
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 
-				if(check_ix >= check_iy){
-					
-					m[m1] = 1; // +y -x
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+
+					if(check_ix >= check_iy){
+						
+						m[m1] = 1; // +y -x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+
+					}else{
+
+						m[m1] = 3; // +y +x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
 
 				}else{
 
-					m[m1] = 3; // +y +x
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
@@ -480,15 +523,24 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 			
-				if(check_ix >= check_iy){
-				
-					m[m1] = 2; //-y -x 
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
-				
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+
+					if(check_ix >= check_iy){
+					
+						m[m1] = 2; //-y -x 
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					
+					}else{
+
+						m[m1] = 1; //+y -x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
+
 				}else{
 
-					m[m1] = 1; //+y -x
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
@@ -515,15 +567,24 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+				
+					if(check_ix >= check_iy){
 
-					m[m1] = 1;
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
+						m[m1] = 1;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					
+					}else{
+
+						m[m1] = 0;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
 				
 				}else{
 
-					m[m1] = 0;
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
@@ -534,34 +595,53 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
 
-					m[m1] = 2;
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
-				
+					if(check_ix >= check_iy){
+
+						m[m1] = 2;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					
+					}else{
+					
+						m[m1] = 0;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
+
 				}else{
-				
-					m[m1] = 0;
+
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
+
 				}
-				
+
 				m[m2] = 1;
 
 			}else if(center_x1 < center_x2 && center_y1 >= center_y2){
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){
-					
-					m[m1] = 1;
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+
+					if(check_ix >= check_iy){
+						
+						m[m1] = 1;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+
+					}else{
+
+						m[m1] = 2;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
 
 				}else{
 
-					m[m1] = 2;
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
@@ -586,18 +666,28 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 			if(center_x1 <= center_x2 && center_y1 <= center_y2){
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
-				
-				if(check_ix >= check_iy){
+	
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){	
+
+					if(check_ix >= check_iy){
+						
+						m[m1] = 0; // -y +x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
 					
-					m[m1] = 0; // -y +x
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
-				
+					}else{
+
+						m[m1] = 1; // +y -x
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
+
 				}else{
 
-					m[m1] = 1; // +y -x
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
+
 				}
 
 				m[m2] = 3;
@@ -606,15 +696,24 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
 				
-				if(check_ix >= check_iy){
-				
-					m[m1] = 3;
-					ini_x[m1] = x[m1];
-					ini_y[m1] = y[m1];
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+
+					if(check_ix >= check_iy){
+					
+						m[m1] = 3;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+
+					}else{
+
+						m[m1] = 1;
+						ini_x[m1] = x[m1];
+						ini_y[m1] = y[m1];
+					}
 
 				}else{
 
-					m[m1] = 1;
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
 					ini_x[m1] = x[m1];
 					ini_y[m1] = y[m1];
 				}
@@ -624,8 +723,18 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 			}else if(center_x1 > center_x2 && center_y1 < center_y2){
 
 				coord_xy(m1, m2, px_wh, px_hw, ax, ay);
-				m[m1] = 3;
-				m[m2] = 1;
+				
+				if(mode_ex[0] == 'n' && mode_ey[0] == 'n'){
+					
+					m[m1] = 3;
+					m[m2] = 1;
+				
+				}else{
+
+					check_effect_xy(m1, mode_ex, percent_efx, mode_ey, percent_efy, v, f, m);
+					ini_x[m1] = x[m1];
+					ini_y[m1] = y[m1];
+				}
 			}
 
 		}else{
