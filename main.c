@@ -157,7 +157,7 @@ int main(int argc, char *argv[]){
 
                         percent_y_1 = 100 - percent_y;
 
-                        printf("\nEFFECT Y UP -> %.2f (%) up\n", percent_y_1);
+                        printf("\nEFFECT Y UP -> %.2f up\n", percent_y_1);
                     
                     }else{ //init center up down (continue effect)
 
@@ -169,7 +169,7 @@ int main(int argc, char *argv[]){
 
                         percent_y_2 = percent_y;
 
-                        printf("\nEFFECT Y DOWN -> %.2f (%) up\n", percent_y_2);
+                        printf("\nEFFECT Y DOWN -> %.2f up\n", percent_y_2);
 
                     }
                     //end percentual for effects y u & y d, x l & x r
@@ -192,7 +192,7 @@ int main(int argc, char *argv[]){
 
                         percent_y_1 = 100 - percent_y;
 
-                        printf("\nEFFECT Y UP -> %.2f (%) down\n", percent_y_1);
+                        printf("\nEFFECT Y UP -> %.2f down\n", percent_y_1);
                     
                     }else{ //init center + for center 
                         
@@ -204,15 +204,13 @@ int main(int argc, char *argv[]){
 
                         percent_y_2 = percent_y;
 
-                        printf("\nEFFECT Y DOWN -> %.2f (%) down\n", percent_y_2);
+                        printf("\nEFFECT Y DOWN -> %.2f down\n", percent_y_2);
                     }
                     //end percentual for effects y u & y d, l x & x r
 
                 }else if(event.key.keysym.sym == SDLK_q){
                     
-                    printf("Key %s = quit",
-                    SDL_GetScancodeName(event.key.keysym.scancode),
-                    SDL_GetKeyName(event.key.keysym.sym));
+                    printf("Key %s = quit", SDL_GetKeyName(event.key.keysym.sym));
                     
                     printf("\nSNOOKER GAME END\n");
                     return 0;
