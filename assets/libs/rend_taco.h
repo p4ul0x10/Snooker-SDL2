@@ -1,6 +1,5 @@
 void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float deg_mode, float df_x, float df_y){
 
-
     float x, y;
 
     x = vetX[15];
@@ -11,37 +10,43 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
     SDL_Texture *texture_taco = SDL_CreateTextureFromSurface(rendT, image_taco);
 	SDL_FreeSurface(image_taco);
 
-    int cont_px = 0;
-    int px = 0;
-    float incPx, divAL, divLA, deg_limit, total_deg, div_angulo;
-    float bx, by;
+    int cont_px = 0, px = 0;
+    float incPx, divAL, divLA, deg_limit, total_deg, div_angulo, bx, by;
     bool stop_px = false, run = true;
 
 	divLA = df_x / df_y; //largura / altura
 	divAL = df_y / df_x; //altura / largura
 
-    bx = x+10;
-    by = y+10;
+    bx = x + 10;
+    by = y + 10;
 
     SDL_SetRenderDrawColor(rendT, 0, 0, 0, 1);
 
     //start init calc limit deg
-	while (px < 16)
-	{
+	while (px < 26){
+
          if(divLA >= 1){ //div largura / altura >= 1 by -> divAL && bx +=1
+           
             //start Sets by bx adds
             if(deg_mode == -90 || deg_mode == 180){
+                
                 by -= divAL;
+            
             }else if(deg_mode == 90 || deg_mode == 0){
+            
                 by += divAL;
             }
 
 
             if(deg_mode == 90 || deg_mode == 180){
+            
                 bx -= 1;
+            
             }else if(deg_mode == -90 || deg_mode == 0){
+            
                 bx += 1;
             }
+           
             //end sets px > 1
             //end if px addeds > 1
 
@@ -49,15 +54,23 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
 
             //start sets by bx divla < 1
             if(deg_mode == -90 || deg_mode == 180){
+            
                 by -= 1;
+            
             }else if(deg_mode == 90 || deg_mode == 0){
+            
                 by += 1;
+            
             }
 
             if(deg_mode == 90 || deg_mode == 180){
+            
                 bx -= divLA;
+            
             }else if(deg_mode == -90 || deg_mode == 0){
+            
                 bx += divLA;
+            
             }
 
             //end sets by bc divla < 1
@@ -85,58 +98,44 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
         y = y + 20 / 2; //bola / 2
 
         float ang_t, ang, pi, px_recover_center, px_y_inc, px_y_add, px_x_inc, px_x_add, px_x_central, ang_recover;
-        pi = 3.1415; //pi
+        pi = 3.141592; //pi
         ang_t = atan (divAL) * 180 / pi; //total de graus
 
-        if(round(ang_t) <= 45){ //first 45 initial degress
+        if(ang_t <= 45){ //first 45 initial degress
 
-            if(round(ang_t) <= 22.5){ // < 22.5 deg(s)
+            if(ang_t <= 22.5){ // < 22.5 deg(s)
 
                  //start y recover center
-                 px_recover_center = 75 / 22.5; //3.3333 porcentagem relativa aos primeiros 22.5 graus
+                 px_recover_center = 76 / 22.5; //3.3333 porcentagem relativa aos primeiros 22.5 graus
                  px_y_add = px_recover_center * ang_t;
                  y = y + px_y_add;
                  //end y recover center
 
                  //start x recover center
-                 px_x_central = 10 / 22.5; //porcentagem relativa aos primeiros 22.5 graus
+                 px_x_central = 14 / 22.5; //porcentagem relativa aos primeiros 22.5 graus
                  px_x_add = px_x_central * ang_t; //porcentagem relativa * total de angulo de enclinacao
                  x = x + px_x_add;
-
-                 //start ajust center x
-                 float px_xx, px_xx_inc;
-                 px_xx_inc = 5 / 22.5;
-                 px_xx = px_xx_inc * ang_t;
-                 x = x + px_xx;
-                 //end ajust center x
 
                  //start add degress 22.5
                  ang = 90+ang_t;
                  deg = -ang;
                  //end add degress 22.5
 
-            }else if(round(ang_t) > 22.5){ //> 22.5 deg(s)
+            }else if(ang_t > 22.5){ //> 22.5 deg(s)
 
-                if(ang_t > 40){
-                    //SDL_Quit();
-                }
                 //start y recover center
-                px_recover_center = 62 / 22.5; //2.7555;
+                px_recover_center = 63.5 / 22.5; //2.7555;
                 px_y_add = px_recover_center * ang_t; //porcentagem relativa * total do angulo de enclinacao
-                y = y + 17; //recover y 22.5 deg(s) init
+                y = y + 15.5; //recover y 22.5 deg(s) init
                 y = y + px_y_add; //add y pos
                 //end y recover center
 
                 //start x recover center
                 x = x + 15; //recover x relativo 22.5 deg(s) init
-                px_x_central = 47 / 45; //porcentagem de px relativo / quantidade de graus
+                px_x_central = 90 / 45; //porcentagem de px relativo / quantidade de graus
                 px_x_inc = ang_t - 22.5; //recover 22.5 degs
                 px_x_add = px_x_central * px_x_inc;
                 x = x + px_x_add; //recover x relativo 22.5 deg(s) > 22.5 && < 45
-                x = x + 1.1111*px_x_add; //recover x 25 px / 22.5 deg(s)
-
-                 //end ajust center x
-
                 //end x recover center
 
                 //start add degress 45
@@ -149,48 +148,48 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
 
             total_deg = ang_t / 4.5; //quantidade atual de deg(s) / unidade de medida px -> converte quantidade degs -> quantidade px
             //start border rotation y pos - > 45 deg(s) initials
-             if(total_deg <= 4){
+            if(total_deg <= 4){
 
                 x = x - 13;
                 y = y + total_deg;
-                 y = y + 1;
+                 
              }else if(total_deg > 4 && total_deg <= 6){
-
-                x = x - 11;
-                y = y + total_deg;
-                 y = y + 1;
-             }else if(total_deg > 6 && total_deg < 8){
 
                 x = x - 10;
                 y = y + total_deg;
-                y = y + 1;
-             }else if(total_deg > 7 && total_deg < 9){
+        
+             }else if(total_deg > 6 && total_deg < 8){
 
                 x = x - 11;
                 y = y + total_deg;
-                y = y + 1;
+                
+             }else if(total_deg > 7 && total_deg < 9){
+
+                x = x - 10;
+                y = y + total_deg;
+                
              }else if(total_deg > 8 && total_deg < 10){
 
-                x = x - 12;
+                x = x - 9;
                 y = y + total_deg;
-                y = y + 2;
+                
              }else if(total_deg > 9 && total_deg < 11){
 
-                x = x - 12;
+                x = x - 8;
                 y = y + total_deg;
-                y = y - 3;
+                
              }
              //end border rotation y pos
 
              //end border rotation pos x y
+            
+        }else if(ang_t > 45){ //graus > 45 ate 90
 
-        }else if(round(ang_t) > 45){ //graus > 45 ate 90
-
-            if(round(ang_t) <= 67.5){ // graus < 65 || graus < 22.5 relativo
+            if(ang_t <= 67.5){ // graus < 65 || graus < 22.5 relativo
 
                 //start y recover center
                 //180 total y
-                px_recover_center = 37 / 22.5; //quantidade de px / quantidade de graus
+                px_recover_center = 39 / 22.5; //quantidade de px / quantidade de graus
                 px_x_inc = ang_t - 45; //recupera quantidade de graus (atual) relativo para 22.5
                 px_y_add = px_recover_center * px_x_inc; //quantidade de px * quantidade de graus atual (relativo 22.5)
                 //y = y + px_y_add;
@@ -199,27 +198,22 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
 
                 //start y ajust center 1
                 float px_yy, px_yy_inc;
-
                 px_yy = 4 / 22.5;
                 px_yy_inc = px_yy * px_x_inc;
                 y = y + px_yy_inc;
                 //end y ajust center 1
-
+                if(ang_t >= 50 && ang_t < 60){
+                    y = y + 1;
+                }
                 //end y recover center
 
                 //start x recover center
                 //112 total x
-                x = x + 56; //recover x first 45 graus
-                px_x_central = 59 / 22.5; //quantidade de px / quantidade de graus(relativo 22.5)
+                x = x + 58; //recover x first 45 graus
+                px_x_central = 65 / 22.5; //quantidade de px / quantidade de graus(relativo 22.5)
                 px_x_inc = ang_t - 45; //recuperacao de 22.5 relativo a quantidade de graus atual (atual deg - 45)
                 px_x_add = px_x_central * px_x_inc; //quantidade de px adds * quantidade de graus atual relativo aos (22.5) adicionais aos 45 finais
-                x = x + px_x_add;//55;
-                //x = x + 112;
-                //start ajust center x
-                 float px_xx, px_xx_inc;
-                 px_xx_inc = 2 / 22.5;
-                 px_xx = px_xx_inc * ang_t;
-                 x = x + px_xx;
+                x = x + px_x_add;
                 //end x recover center
 
                 //start add degress > 45 && < 65
@@ -227,29 +221,24 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
                 deg = -ang;
                 //end add degress > 45 && < 65
 
-            }else if(round(ang_t) > 67.5){ // graus > 65 || graus > 22.5 relativo
+            }else if(ang_t > 67.5){ // graus > 65 || graus > 22.5 relativo
 
-                if(ang_t > 70){
-                    //SDL_Quit();
-                }
                 //start y recover center 197 total y
-                y = y + 182; //recover y 65 graus initials
-                px_recover_center = 20 / 22.5; //quantidade de px / quantidade relativa de graus (22.5)
-                px_y_inc = ang_t - 65; //recuperacao da quantidade atual de graus (relativo 22.5)
+                y = y + 186; //recover y 65 graus initials
+                px_recover_center = 15 / 22.5; //quantidade de px / quantidade relativa de graus (22.5)
+                px_y_inc = ang_t - 68; //recuperacao da quantidade atual de graus (relativo 22.5)
                 px_y_add = px_recover_center * px_y_inc; //quantidade de px * quantidade de graus atual
                 y = y + px_y_add; //adiciona y pos
                 //end y recover center
-
+                if(ang_t >= 72){
+                    y = y + 1.5;
+                }
                 //start x recover center 200 px total
-                x = x + 116; //recover x 65 graus initials
-                px_x_central = 84 / 22.5; //quantidade de px / graus relativo 22.5
+                x = x + 116.8; //recover x 65 graus initials
+                px_x_central = 74 / 22.5; //quantidade de px / graus relativo 22.5
                 px_x_inc = ang_t - 65; //recuperacao da quantidade atual de graus (relativo 22.5)
                 px_x_add = px_x_central * px_x_inc; //quantidade de px * quantidade atual de graus
                 x = x + px_x_add; //adiciona x pos
-
-                div_angulo = 10 / 22.5; //10 px(raio) / quantidade de vezes relativo a (22.5 graus)
-                deg_limit = px_x_inc * div_angulo; //quantidade de px * divisao total do raio(10) / 22.5 (vezes)
-                x = x - deg_limit; //recover x center px relativo(raio de px)
                 //end x recover center
 
                 //start add degress > 65 && <= 90
@@ -262,27 +251,27 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
             //start border rotation pos x y
             float ang_recover_add;
             ang_recover = ang_t - 45; //recupera quantidade de graus para 45 deg(s) max relativo
-            total_deg = ang_recover / 7; //quantidade atual de deg(s) / unidade de medida px -> converte quantidade degs -> quantidade px
-            ang_recover_add = 7 - total_deg; //recupera quantidade de graus decrescente relativo maximo ajuste 7 px
-            x = x + 2;
-            //y = y + 1;
+            total_deg = ang_recover / 8; //quantidade atual de deg(s) / unidade de medida px -> converte quantidade degs -> quantidade px
+            ang_recover_add = 8 - total_deg; //recupera quantidade de graus decrescente relativo maximo ajuste 7 px
+           
             //start border rotation x pos -> 45 deg(s) end close 90 deg(s)
-             if(total_deg <= 1){
+            if(total_deg <= 1){
 
                 x = x - ang_recover_add;
-                y = y + 8;
-                y = y + 1;
+                y = y + 9;
+             
              }else if(total_deg > 1 && total_deg < 4){
 
                 x = x - ang_recover_add;
-                y = y + 10;
-                y = y + 1;
+                x = x + 1;
+                y = y + 11;
+             
              }else if(total_deg > 3){
 
                 x = x - ang_recover_add;
+                x = x + 3;
                 y = y + 11;
-                y = y + 1;
-
+              
              }
              //end border rotation pos x y
         }
@@ -291,360 +280,337 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
 
         x = x + 17 / 2; //bola / 2
         y = y + 20 / 2; //bola / 2
-        //y = y + 10;
+        
 
-        float ang_t, ang, pi, ang_recover, px_recover_center, px_y_inc, px_y_add, px_x_inc, px_x_add, px_x_central;
+        float ang_t, ang, pi, ang_recover, px_recover_center, px_y_inc, px_y_add;
+        float incx, addx, recx, px_x_inc, px_x_add, px_x_central;
+
         pi = 3.1415;
         ang_t = atan (divAL) * 180 / pi;
-        ang = 90+ang_t;
+
+        ang = 90 + ang_t; 
         ang_recover = 180 - ang; //recupera angulo relativo a 90 graus
+        
+        if(ang_recover <= 45){
 
-        if(round(ang) <= 135){ //> 45 degs last 45 deg(s)
+            if(ang_recover <= 7.5){ //45 <= deg (90 ~ 180)
 
-            if(round(ang) <= 112.5){ //< 22.5 degs - > 90 max (final)
-
-            //start x recover center
-            x = x + 184.5; //recover x center <= 65 deg(s) initials
-            px_x_central = 112.5 - ang; //recupera quantidade de graus atual relativo
-            px_x_inc = 15.5 / 22.5; //quantidade de px restante / quantidade total de graus relativo
-            px_x_add = px_x_inc * px_x_central; //quantidade de px * quantidade de graus relativo (22.5)
-            x = x + px_x_add; //adiciona x pos
-            //x = x + 200;
-            //end x recover center
-
-            //start y recover center
-            y = y - 122; //recover y center <= 65 deg(s) inititals
-            px_recover_center = 112.5 - ang; //recupera quantidade de graus relativo (22.5)
-            px_y_inc = 78 / 22.5; //quantidade de px total / quantidade relativa de graus max (22.5)
-            px_y_add = px_y_inc * px_recover_center; //quantidade de px relativo * quantidade de graus relativo max 22.5
-            y = y - px_y_add; //adiciona y pos
-            //end y recover center
-
-            //start add deg(s)
-            deg = ang;
-            //end add deg(s)
-
-            }else if(round(ang) > 112.5){ // > 22.5 degs - > 65 max total
-                //SDL_Quit();
-                //start recover x center
-                x = x + 107; //recover x 45 degs initials
-                px_x_central = 157 - ang; //recupera quantidade de graus relativo
-                px_x_inc = 37.5 / 22.5; //quantidade de px eixo x  / quantidade total relativo 22.5
-                px_x_add = px_x_inc * px_x_central; //quantidade px eixo x * quantidade de graus
-                x = x + px_x_add; //incrementa x pos 110
-                //end recover x center
-
-                //start recover y center
-                y = y - 57; //recover y 45 degs initials
-                px_recover_center = 135 - ang; //recupera quantidade de graus relativa
-                px_y_inc = 68 / 22.5; //quantidade de px / quantidade de graus relativo
-                px_y_add = px_x_inc * px_recover_center; //quantidade de px * quantidade de graus
-                y = y - px_y_add; //adiciona y px
-                //y = y - 30;
-                float px_incy, px_ycenter, px_addy, px_yrec;
-                px_yrec = 112.5 - ang; //quantidade de graus relativa 22.5
-                px_ycenter = 30 / 22.5; //quantidade de px / quantidade de graus
-                px_incy = px_ycenter * px_recover_center; // quantidade de px * quantidade de graus
-                y = y - px_incy; //adiciona y px
-                //end recover y center
-
-                //start deg(s) add
+                px_recover_center = 3.5555 * ang_recover;
+                x = x + px_recover_center + 0.12 * ang_recover;
+                
+                y = y - 0.1 * ang_recover; 
                 deg = ang;
-                //end deg(s) add
-            }
 
-            //start border rotation y x pos
-            float ang_recover_add;
-            ang_recover = 135 - ang; //recupera quantidade de graus atual max relativo 45 graus
-            total_deg = ang_recover / 7; //quantidade de graus recuperado / quantidade relativa maxima da borda
-            ang_recover_add = 7 - total_deg; //quantidade de px relativa - resultado da divisao de graus pelos px
+            }else if(ang_recover > 7.5 && ang_recover <= 15){
 
-            //start border rotation y pos -> 45 deg(s) finals
-            if(ang_recover <= 1){
-                x = x + 9;
-                y = y + ang_recover_add;
-            }else if(ang_recover > 1 && ang_recover < 4){
-                x = x + 10;
-                y = y + ang_recover_add;
-            }else if(ang_recover > 3){
-                x = x + 13;
-                y = y + ang_recover_add;
-            }
-            //end border rotation y pos
-            //end border rotation y x pos
+                recx = ang_recover - 7.5;
 
-        }else if(round(ang) > 135){ //> 45 degs
+                x = x + 26.6666;
+                px_recover_center = 3.4 * recx;
+                x = x + px_recover_center;
 
-            if(round(ang) <= 157.5){ //> 22.5 deg(s) && <= 45
+                y = y - 1;
+                px_y_add = 0.55 * recx;
+                y = y - px_y_add;
 
-            //start x recover center
-            x = x + 75; //recover 22.5 x initials
-            px_x_central = 157.5 - ang; //recupera quantidade de graus relativo a 22.5
-            px_x_inc = 67 / 22.5; //quantidade de px / quantidade de graus relativo max 22.5
-            px_x_add = px_x_inc * px_x_central; //quantidade de px * quantidade de graus
-            x = x + px_x_add; //add recover x center
-            //end x recover center
-
-            //start y recover center
-            y = y - 15; //recover y center 22.5 deg(s) initials
-            px_recover_center = 157.5 - ang; //recupera quantidade de graus relativo a 22.5
-            px_y_inc = 44 / 22.5; //quantidade de px / quantidade de graus ativo max 22.5
-            px_y_add = px_y_inc * px_recover_center; //quantidade de px * quantidade de graus
-            y = y - px_y_add; //add recover y center
-            //end y recover center
-
-            //start add deg(s)
-            deg = ang;
-            //end add deg(s)
-            }else if(round(ang) > 157.5){ //< 22.5 deg(s)
-
-                //y = y - 15;
-                //x = x + 75;
-                //start x recover center
-                float incx, addx, recx;
-                incx = 7 / 22.5; //recupera porcentagem relativa ao centro eixo (x)
-                addx = ang_t - 90; //recupera graus ate 90 relativo a 180
-                recx = addx*3.1222; //recupera centro eixo x -> incrementa quantidade de px a cada alteração de graus
-                x = x - recx; //incrementa nova posição eixo x relativo graus
-                x = x - incx*addx; //incrementa nova posicao eixo x relativo aos 22.5 graus / 45
-                //end x recover center
-
-                //start y recover center
-                px_recover_center = ang_t - 90; //recupera quantidade de graus
-                px_y_inc = 15 / 22.5; //quantidade de px relativo a 22.5 graus
-                px_y_add = px_y_inc * px_recover_center; //quantidade de px * quantidade de graus
-                y = y + px_y_add; //incrementa nova posicao eixo y
-
-                //start add deg(s)
                 deg = ang;
-                //end add deg(s)
+            
+            }else if(ang_recover > 15 && ang_recover <= 22.5){
+
+                recx = ang_recover - 15;
+                
+                x = x + 26.6666 * 2;
+                px_recover_center = 2.9 * recx;
+                x = x + px_recover_center;
+
+                y = y - 6.7;
+                px_y_add = 0.85 * recx;
+                y = y - px_y_add;
+                deg = ang;
+
+            }else if(ang_recover > 22.5 && ang_recover <= 30){
+
+                recx = ang_recover - 22.5;
+                
+                x = x + 26.35 * 2.9;
+                px_recover_center = 3.1 * recx;
+                x = x + px_recover_center;
+
+                y = y - 14.7;
+                px_y_add = 1.40 * recx;
+                y = y - px_y_add;
+                deg = ang;
+            
+            }else if(ang_recover > 30 && ang_recover <= 37.5){
+
+                recx = ang_recover - 30;
+                
+                x = x + 25 * 4;
+                px_recover_center = 2.9 * recx;
+                x = x + px_recover_center;
+
+                y = y - 25;
+                px_y_add = 2.0 * recx;
+                y = y - px_y_add;
+                deg = ang;
+            
+            }else if(ang_recover > 37.5 && ang_recover <= 45){
+
+                recx = ang_recover - 37.5;
+                
+                x = x + 24.4 * 5;
+                px_recover_center = 2.6 * recx;
+                x = x + px_recover_center;
+
+                y = y - 39;
+                px_y_add = 2.5 * recx;
+                y = y - px_y_add;
+                deg = ang;
+            }
+          
+            //start border rotate
+            float rot_x, calc_rot_y;
+
+            y = y + 10;//top limit borber 
+         
+            rot_x = 0.177 * ang_recover; //8 px / 45 -> 0.177 * ang recover 
+            
+            calc_rot_y = 0.066 * ang_recover; // 3 px / 45 -> 0.066 * ang recover 
+            
+            if(rot_x <= 8){
+
+                x = x + rot_x; // recover x pos
+                y = y - calc_rot_y; // recover y pos
+            }
+            //end border rotate x y
+        
+        }else if(ang_recover > 45){
+
+           if(ang_recover > 45 && ang_recover <= 52.5){
+
+                recx = ang_recover - 45;
+
+                x = x + 23.65 * 6;
+                px_recover_center = 2.3 * recx;
+                x = x + px_recover_center;
+
+                y = y - 58.4;
+                px_y_add = 2.5 * recx;
+                y = y - px_y_add;
+
+                deg = ang;
+
+            }else if(ang_recover > 52.5 && ang_recover <= 60){
+
+                recx = ang_recover - 52.5;
+
+                x = x + 22.7 * 7;
+                px_recover_center = 1.8 * recx;
+                x = x + px_recover_center;
+
+                y = y - 78.2;
+                px_y_add = 2.7 * recx;
+                y = y - px_y_add;
+
+                deg = ang;
+            
+            }else if(ang_recover > 60 && ang_recover <= 67.5){
+
+                recx = ang_recover - 60;
+
+                x = x + 172.4;
+                px_recover_center = 1.5 * recx;
+                x = x + px_recover_center;
+
+                y = y - 99.75;
+                px_y_add = 2.9 * recx;
+                y = y - px_y_add;
+
+                deg = ang;
+            
+            }else if(ang_recover > 67.5 & ang_recover <= 75){
+
+                recx = ang_recover - 67.5;
+
+                x = x + 184;
+                px_recover_center = 1.3 * recx;
+                x = x + px_recover_center;
+            
+                y = y - 122;
+                px_y_add = 3.4 * recx;
+                y = y - px_y_add;
+            
+                deg = ang;
+            
+            }else if(ang_recover > 75 && ang_recover <= 82.5){
+        
+                recx = ang_recover - 75;
+            
+                x = x + 192;
+                px_recover_center = 0.6 * recx;
+                x = x + px_recover_center;
+
+                y = y - 147;
+                px_y_add = 3.6 * recx;
+                y = y - px_y_add;
+
+                deg = ang;
+
+            }else if(ang_recover > 82.5 && ang_recover <= 90){
+
+                recx = ang_recover - 82.5;
+
+                x = x + 196.5;
+                px_recover_center = 0.45 * recx;
+                x = x + px_recover_center;
+                
+                y = y - 174;
+                px_y_add = 3.3 * recx;
+                y = y - px_y_add;
+
+                deg = ang;
             }
 
-            //start border rotation pos x y
+            //start border rotate x y 
+            float rot_x, calc_rot_y, rec_rot;
 
-            total_deg = ang_recover / 4.5; //quantidade atual de deg(s) / unidade de medida px -> converte quantidade degs -> quantidade px
-            //start border rotation x -> 45 deg(s) initials
-             if(total_deg <= 4){
+            y = y + 8; //top limit borber 45+ y
+            x = x + 8; //top limit border 45+ x
 
-                x = x + total_deg;
-                y = y + 12;
-                //x = x - 2;
-             }else if(total_deg > 4 && total_deg <= 6){
+            rec_rot = ang_recover - 45; //recover 45 deg (max)
 
-                x = x + total_deg;
-                y = y + 11;
-                x = x - 2;
-             }else if(total_deg > 6 && total_deg < 8){
+            rot_x = 0.066 * rec_rot; //3 px / 45 -> 0.177 * ang recover 
+            
+            calc_rot_y = 0.177 * rec_rot; // 8 px / 45 -> 0.066 * ang recover 
+            
+            if(calc_rot_y <= 8){ //limit rotate (relativo y)
 
-                x = x + total_deg;
-                y = y + 11;
-                x = x - 1;
-             }else if(total_deg > 7 && total_deg < 9){
-
-                x = x + total_deg;
-                y = y + 10;
-                x = x - 2;
-             }else if(total_deg > 8 && total_deg < 10){
-
-                x = x + total_deg;
-                y = y + 6;
-                x = x - 2;
-             }else if(total_deg > 9 && total_deg < 11){
-
-                x = x + total_deg;
-                y = y + 10;
-                x = x - 2;
-             }
-
-             //end border rotation pos x y
+                x = x + rot_x; // recover x pos (rotate)
+                y = y - calc_rot_y; // recover y pos (rotate)
+            }
+            //end border rotate x y
+        
         }
 
-    }else if(deg_mode == 90){
-
+    }else if(deg_mode == 90){ 
+ 
         x = x + 400 / 2; //taco / 2
         x = x + 20 / 2; //bola / 2
         y = y - 400 / 2; //taco / 2
         y = y + 20 / 2; //bola / 2
-        //x = x + 10;
-
-        float ang_t, ang, pi, px_recover_center, px_y_inc, px_y_add, px_x_inc, px_x_add, px_x_central, ang_recover;
+        
+        float ang_t, ang, pi, px_recover_center, px_y_inc, px_y_add;
+        float px_x_inc, px_x_add, px_x_central, ang_recover;
+        
         pi = 3.1415;
         ang_t = atan (divAL) * 180 / pi;
 
-        if(round(ang_t) <= 45){ //<= 45 first 45 deg(s) initials
+       if(ang_t < 45){
 
-            if(round(ang_t) <= 22.5){ //<= 22.5 deg(s) initials
 
-                //start recover y deg(s) addeds
-                px_recover_center = 75 / 22.5; //3.3333 porcentagem relativa aos primeiros 22.5 graus
-                px_y_add = px_recover_center * ang_t; //quantidade de px * quantidade de graus atual max 22.5
-                y = y - px_y_add; //add y pos
-                //end recover y deg(s) addeds
+            //x = x - (0.46 * ang_t);
+            //y = y - (2.22 * ang_t);
+            
+            if(ang_t <= 22.5){
 
-                 //start recover x center
-                 px_x_central = 10 / 22.5; //porcentagem relativa aos primeiros 22.5 graus
-                 px_x_add = px_x_central * ang_t; //porcentagem relativa * total de angulo de enclinacao
-                 x = x - px_x_add; //add x pos
+                //x = x - 16;
+                x = x - (0.6072 * ang_t);
+                y = y - (3.45 * ang_t);
+                //y = y - 77;
 
-                 //start ajust center x
-                 float px_xx, px_xx_inc;
-                 px_xx_inc = 7 / 22.5; //quantidade px -> recover center
-                 px_xx = px_xx_inc * ang_t; //quantidade px * quantidade angulo atual max 22.5
-                 x = x - px_xx; //add x pos
-                 //end ajust center x
-                 //end recover x center
-
-                //start add deg(s)
-                ang = 90-ang_t;
-                deg = ang;
-                //end add deg(s)
-
-            }else if(round(ang_t) > 22.5){ //> 22.5 deg(s) && <= 45
-                if(ang_t > 24){
-                    //SDL_Quit();
-                }
-                //start recover y center
-                px_recover_center = 62 / 22.5; //quantidade px / quantidade de graus
-                px_y_add = px_recover_center * ang_t; //quantidade px * quantidade de graus atual
-                y = y - 16; //recover y relativo 22.5 graus initials
-                y = y - px_y_add; //add y pos
-                //end recover y center
-
-                //start recover x center
-                x = x - 15; //recover x relativo 22.5 deg(s) init
-                px_x_central = 47 / 45; //porcentagem de px relativo / quantidade de graus
-                px_x_inc = ang_t - 22.5; //recover 22.5 degs
-                px_x_add = px_x_central * px_x_inc;
-                x = x - px_x_add; //recover x relativo 22.5 deg(s) > 22.5 && < 45
-                x = x - 1.1111*px_x_add; //recover x 25 px / 22.5 deg(s)
-                //end recover x center
-                //ajust pending
-
-                //start add deg(s)
-                ang = 90-ang_t;
-                deg = ang;
-                //end add deg(s)
-            }
-
-            //start border rotation 45 deg(s) initials
-            total_deg = ang_t / 7; //recupera quantidade relativa de px (incremento rotacao), pelo resultado da divisao total 90 / 20 = 4.5
-            //start bordar y pos rotacao
-            if(total_deg <= 4){
-                x = x + 11;
-                y = y - total_deg;
-            }else if(total_deg > 4 && total_deg < 7){
-                x = x + 12;
-                y = y - total_deg;
-            }else if(total_deg > 6 && total_deg < 8){
-                x = x + 13;
-                y = y - total_deg;
-                y = y - 2.5;
-            }
-            //end borda y pos rotacao
-            //end border rotation
-
-        }else if(round(ang_t) > 45){ // > 45 deg(s) && <= 90 deg(s)
-           //SDL_Quit();
-
-            if(round(ang_t) <= 67.5){ //< 22.5 first 22.5 deg(s) relativo a >= 45 deg(s)
-
-            //start recover y center
-            px_recover_center = 43 / 22.5; //quantidade de px / quantidade de graus
-            px_y_inc = ang_t - 35; //recupera quantidade de graus (atual) relativo para 22.5
-            px_y_add = px_recover_center * px_y_inc; //quantidade de px * quantidade de graus atual (relativo 22.5)
-            //y = y + px_y_add;
-            y = y - 123; //recover y first 45 graus
-            y = y - px_y_add; //add y pos
-
-            //start y ajust center 1
-            float px_yy, px_yy_inc;
-
-            px_yy = 7 / 22.5; //quantidade px relativo -> center
-            px_yy_inc = px_yy * px_x_inc; //quantidade px * quantidade graus atual
-            //y = y - px_yy_inc; //add y pos
-            //end y ajust center 1
-            //end recover y center
-
-            //start recover x center
-            x = x - 59; //recover x first 45 graus
-            px_x_central = 59 / 22.5; //quantidade de px / quantidade de graus(relativo 22.5)
-            px_x_inc = ang_t - 45; //recuperacao de 22.5 relativo a quantidade de graus atual (atual deg - 45)
-            px_x_add = px_x_central * px_x_inc; //quantidade de px adds * quantidade de graus atual relativo aos (22.5) adicionais aos 45 finais
-            x = x - px_x_add;//add x pos
-            //end recover x center
-            //start ajust x center
-            float px_xx, px_xx_inc;
-            px_xx_inc = 7 / 22.5;
-            px_xx = px_xx_inc * px_x_inc;
-            x = x - px_xx;
-            //end ajust x center
-
-            //start add deg(s)
-            ang = 90-ang_t;
-            deg = ang;
-            //end add deg(s)
-
-            }else if(round(ang_t) > 67.5){ // > 67.5 final 22.5 graus finais relativo max 90
-
-                //start recover y center
-                y = y - 180; //recover y 65 graus initials
-                px_recover_center = 17 / 22.5; //quantidade de px / quantidade relativa de graus (22.5)
-                px_y_inc = ang_t - 67.5; //recuperacao da quantidade atual de graus (relativo 22.5)
-                px_y_add = px_recover_center * px_y_inc; //quantidade de px * quantidade de graus atual
-                y = y - px_y_add; //adiciona y pos
-                //end recover y center
-
-                //start recover x center
-                x = x - 126; //recover x 65 graus initials
-                px_x_central = 84 / 22.5; //quantidade de px / graus relativo 22.5
-                px_x_inc = ang_t - 67.5; //recuperacao da quantidade atual de graus (relativo 22.5)
-                px_x_add = px_x_central * px_x_inc; //quantidade de px * quantidade atual de graus
-                x = x - px_x_add; //adiciona x pos
-
-                div_angulo = 10 / 22.5; //10 px(raio) / quantidade de vezes relativo a (22.5 graus)
-                deg_limit = px_x_inc * div_angulo; //quantidade de px * divisao total do raio(10) / 22.5 (vezes)
-                x = x + deg_limit; //recover x center px relativo(raio de px)
-                //end recover x center
-                //ajust center
-                //start add deg(s)
-                ang = 90 - ang_t;
-                deg = ang;
-                //end add deg(s)
-            }
-
-            //start margin rotation x 45 deg(s) finals
-            float ang_recover_add;
-            ang_recover = ang_t - 45; //recupera quantidade de graus para 45 deg(s) max relativo
-            total_deg = ang_recover / 7; //quantidade atual de deg(s) / unidade de medida px -> converte quantidade degs -> quantidade px
-            ang_recover_add = total_deg; //recupera quantidade de graus decrescente relativo maximo ajuste 7 px
-
-            //ajust recover center x pos
-            if(round(ang_t) <= 67.5){
-                 x = x + 7;
             }else{
-                 x = x + 6;
+
+                x = x - (0.6072 * 22.5);
+                y = y - (3.45 * 22.5);
+                
+                float rec_45;
+                rec_45 = ang_t - 22.5;
+
+                y = y - (2.8 * rec_45); //y = y - 63;
+                x = x - (2.0 * rec_45); //x = x - 47;
             }
-            //end ajust recover center x pos
 
-            //start border rotation x pos -> 45 deg(s) end close 90 deg(s)
-             if(total_deg <= 1){
+            //start rotate
+            float rot_x, rot_y, rec_rot;
 
-                x = x - ang_recover_add;
-                y = y - 8;
+            //y = y - 8;
+            x = x + 10;
 
-             }else if(total_deg > 1 && total_deg < 4){
+            rec_rot = 90 - ang_t;
 
-                x = x - ang_recover_add;
-                y = y - 13;
+            rot_x = 0.066 * ang_t;
+            rot_y = 0.177 * ang_t;
 
-             }else if(total_deg > 3){
+            if(rot_x <= 8){
 
-                x = x - ang_recover_add;
-                y = y - 16;
+                x = x - rot_x;
+                y = y - rot_y;
+            }
+            
+            //end rotate 
+            
+            deg = 90-ang_t;
+        
+        }else if(ang_t > 45){
 
-             }
-             //end border rotation x pos 90 deg(s) completos
-            //end margin rotation 45 deg(s) finals
+            float rec_ang_90, rec_45, rec_0;
+
+            //y = y - 140;
+            //x = x - 60;
+
+            rec_45 = ang_t - 45;
+            
+            if(rec_45 <= 22.5){
+
+                y = y - 142.5;
+                x = x - 58;
+
+                y = y - 1.45 * rec_45;
+                x = x - 3.2 * rec_45;
+            
+                //rec 22.5
+                y = y - (0.53 * rec_45);
+                x = x + (0.29 * rec_45);
+                //rec 22.5
+
+                deg = 90 - ang_t;
+
+            }else{
+
+                y = y - 142.5;
+                x = x - 59;
+
+                rec_0 = rec_45 - 22.5;
+
+                y = y - 1.37 * 22.5;
+                x = x - 2.9 * 22.5;
+
+                y = y - 0.65 * 22.5;
+
+                y = y - (0.65 * rec_0);
+                x = x - (3.4 * rec_0);
+
+                deg = 90 - ang_t;
+            }
+
+
+            //start rotate
+            x = x + 8;
+            y = y - 8;
+            
+            float rot_x, rot_y, rec_rot;
+
+            rot_x = 0.17 * rec_45;
+            rot_y = 0.066 * rec_45;
+
+            if(rot_x <= 8){
+
+                x = x - rot_x;
+                y = y - rot_y;
+            }
+
+            //deg = 90 - ang_t;
+            //end rotate
         }
 
     }else if(deg_mode == 0){
@@ -654,189 +620,115 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
         y = y - 200; //taco / 2
         y = y + 20 / 2; //bola / 2
 
-        float ang_t, ang, pi, ang_recover ,px_recover_center, px_y_inc, px_y_add, px_x_inc, px_x_add, px_x_central;
+        float ang_t, ang, pi, ang_recover ,px_recover_center, px_y_inc, px_y_add;
+        float px_x_inc, px_x_add, px_x_central;
+       
         pi = 3.1415; //pi
+        
         ang_t = atan (divAL) * 180 / pi; //quantidade de graus atual sem conversao
         ang = 90-ang_t; //recupera quantidade de graus para octeto atual
 
-        if(round(ang_t) <= 45){ //final 45 deg(s) initials > 90
+        if(ang <= 45){
 
-            if(round(ang_t) <= 22.5){ //> 22.5 deg(s) & <= 45
+            if(ang <= 22.5){
 
-            //start recover y center
-            y = y + 125; //recover y center
-            px_recover_center = 22.5 - ang_t; //recupera quantidade total de graus para (22.5) graus relativo
-            px_x_inc = 75 / 22.5; //quantidade total px / quantidade relativa de graus
-            px_x_add = px_x_inc * px_recover_center; //quantidade total px * quantidade atual total graus
-            y = y + px_x_add;//add y pos
-            //end recover y center
+                //y = y + 16;
+                //x = x - 78;
+                float recpx, rpx;
 
-            //start recover x center
-            x = x - 185; //recover x center
-            px_x_central = 22.5 - ang_t; //recupera quantidade de atual de graus relativo 22.5
-            px_x_inc = 13 / 22.5; //quantidade de px / quantidade relativa de graus max 22.5
-            px_x_add = px_x_inc * px_x_central; //quantidade de px * quantidade de graus relativo 22.5
-            x = x - px_x_add; //add x pos
-            //end recover x center
-
-            //start add deg(s)
-            deg = -ang;
-            //end add  deg(s)
-
-            }else if(round(ang_t) > 22.5){ //> 22.5 && <= 45 deg(s) first 45 initials > 45
-
-                //start recover y center
-                y = y + 60; //124 recover total y center
-                px_recover_center = 45 - ang_t; //recupera quantidade de graus atual (relativo para max 22.5) graus
-                px_y_inc = 64 / 22.5; //quantidade total de px relativo / quantidade max de graus 22.5
-                px_y_add = px_y_inc * px_recover_center; //quantidade de px * quantide total de graus relativa
-                y = y + px_y_add; //64 px_y_add;
-                //end recover y center
-
-                //start recover x center
-                x = x - 145; //recover total x center
-                px_x_central = 45 - ang_t; //recupera quantidade de graus atual (relativo para max 22.5)  graus
-                px_x_inc = 38 / 22.5; //quantidade total px / quantidade relativa max graus( 22.5)
-                px_x_add = px_x_inc * px_x_central; //quantidade de px * quantidade total atual de graus
-                x = x - px_x_add; //add x pos
-                //end recover x center
-
-                //start add deg(s)
-                deg = -ang;
-                //end add deg(s)
-            }
-
-            //start border rotation y x pos
-            float ang_recover_add;
-            ang_recover = 45 - ang_t; //recupera quantidade de graus atual max relativo 45 graus
-            total_deg = ang_recover / 6.42; //quantidade de graus recuperado / quantidade relativa maxima da borda
-            ang_recover_add = 7 - total_deg; //quantidade de px relativa - resultado da divisao de graus pelos px
-
-            //start border rotation y pos -> 45 deg(s) finals
-            //y = y - 7;
-            y = y - 2;
-            if(total_deg <= 1){
-                x = x - 8;
-                y = y - ang_recover_add;
-            }else if(total_deg > 1 && total_deg < 4){
-                x = x - 13;
-                y = y - ang_recover_add;
-            }else if(total_deg > 3){
-                x = x - 14;
-                y = y - ang_recover_add;
-            }
-            //end border rotation y pos
-
-        }else if(round(ang_t) > 45){ //< 45 deg(s) && <= 45 deg(s) final
-
-            if(round(ang_t) < 67.5){ //> 22.5 deg(s) relativo <= 45 initials
-
-                //start recover y center
-                y = y + 15; //recover y center relativo first 22.5 deg(s) init(s)
-                px_recover_center = 67.5 - ang_t; //recupera quantidade de graus atual para (22.5 relativo)
-                px_y_inc = 50 / 22.5; //quantitade total de px / quantidade total de graus relativo (22.5)
-                px_y_add = px_y_inc * px_recover_center; //quantidade px total relativo max 22.5 * quantidade de graus atual
-                y = y + px_y_add; //add center
-
-                //start ajust center y
-                float px_yy, px_yy_inc;
-                px_yy = 7 / 22.5; //quantidade de px / quantidade de px relativo max 22.5
-                px_yy_inc = px_yy * px_recover_center; //quantidade de px * quantidade atual total de graus
-                y = y - px_yy_inc; //add y pos
-                //end recover y center
-
-                //start recover x center
-                x = x - 140; //recupera quantidade de graus relativa 45 deg(s) init
-                px_x_central = ang_t - 45; //recupera quantidade de graus atual (relativo 22.5)
-                px_x_inc = 60 / 22.5; //quantidade de px total relativa / quantidade maxima de graus 22.5
-                px_x_add = px_x_inc * px_x_central; //quantidade total relativa de px / quantidade de graus atual
-                x = x + px_x_add;//px_x_add; //add x pos
-                //end recover x center
-
-                //start ajust center x
-                float px_xx, px_xx_inc;
-                px_xx_inc = 3 / 22.5;
-                px_xx = px_xx_inc * px_x_central;
-                x = x + px_xx;
-                //x = x - 7;
-                //end ajust center x
-                //start add deg(s)
-                deg = -ang;
-                //end add deg(s)
-
-            }else if(round(ang_t) >= 67.5){ // < 22.5 deg(s) first 22.5
-
-                if(round(ang_t) < 70){
-                    //SDL_Quit();
-                    x = x + 3.5;
+                recpx = 22.5 - ang;
+         
+                y = y + 0.671 * ang;
+                if(ang < 20){
+                y = y - 0.145 * ang;
                 }
-                //start recover y center
-                px_recover_center = 90 - ang_t; //recupera quantidade de graus relativo max 22.5
-                px_y_inc = 15 / 22.5; //quantidade de px relativo primeiros 22.5 deg(s)
-                px_y_add = px_y_inc * px_recover_center; //quantidade de px * quantidade de graus atual recuperado max 22.5
-                y = y + px_y_add; //add y pos
-                //end recover y center
-
-                //start recover x center
-                //x = x - 80; //recover x center <= 65 deg(s) initials
-                //px_x_central = 67.5 - ang; //recupera quantidade de graus atual relativo
-                px_x_central = 90 - ang_t; //recupera quantidade de graus relativo max 22.5
-                px_x_inc = 80 / 22.5; //quantidade de px restante / quantidade total de graus relativo
-                px_x_add = px_x_inc * px_x_central; //quantidade de px * quantidade de graus relativo (22.5)
-                x = x - px_x_add; //adiciona x pos
-                //x = x + 2;
-                //start ajust x center 1
-                float px_xx, px_xx_inc, px_center_degs;
-                px_center_degs = 90 - ang_t; //recupera quantidade de graus atual (max 22.5)
-                px_xx_inc = 2 / 22.5; //quantidade px / quantidade relativa maxima de graus
-                px_xx = px_xx_inc * px_recover_center; //quantidade de px * quantidade de graus atual
-                x = x + px_xx; //add x pos
-                //end ajust x center 1
-
-                //end recover x center
-
-                //start add deg(s)
+                x = x - 3.46 * ang;
                 deg = -ang;
-                //end add deg(s)
+                
+            }else{
+
+                y = y + (0.70 * 22.5);
+                x = x - (3.48 * 22.5);
+                
+                float rec_45, rec_0;
+
+                rec_45 = ang - 22.5;
+                rec_0 = 45 - ang;
+                //y = y + 44;
+                //x = x - 64;
+                y = y + (1.965 * rec_45);
+                if(ang <= 41){
+                y = y - (0.139 * rec_45);
+                }
+                x = x - (2.84 * rec_45);
+                deg = -ang;
+            }
+        
+            //
+            float rot_x, rot_y;
+
+            y = y - 12;
+
+            rot_x =0.177 * ang;
+            rot_y = 0.06 * ang;
+        
+            if(rot_x <= 8){
+
+                x = x - rot_x;
+                if(rot_x >=7.5){
+                y = y + rot_y;
+                }
+            }
+            //
+        }else if(ang > 45){
+        
+            if(ang <= 67.5){
+
+                y = y + 57;
+                x = x - 142.5;
+
+                float rec_45;
+                rec_45 = ang - 45;
+
+                y = y + 2.7 * rec_45; //y = y + 60;
+                x = x - 1.9 * rec_45; //40
+                deg = -ang;
+           
+            }else{
+
+                y = y + 122;
+                x = x - 185.75;
+
+                float rec_45;
+                rec_45 = ang - 67.5;
+
+                y = y + (3.51 * rec_45);
+                x = x - (1 * rec_45);
+                // y = y + 2.76 * rec_45; //y = y + 60;
+                // x = x - 1.9 * rec_45; //40
+                deg = -ang;
             }
 
-            //start border rotation 45 deg(s) inits
-            ang_recover = 90 - ang_t;
-            total_deg = ang_recover / 4.5; //quantidade atual de deg(s) / unidade de medida px -> converte quantidade degs -> quantidade px
-            //start border rotation x -> 45 deg(s) initials
+            
+            float rot_x, rot_y, rec_rot;
 
-             if(total_deg <= 4){
+            rec_rot = ang - 45;
+            
+            y = y - 7;
+            x = x - 8;
 
-                x = x - total_deg;
-                y = y - 12;
+            rot_x = 0.066 * rec_rot;
+            rot_y = 0.155 * rec_rot;
 
-             }else if(total_deg > 4 && total_deg <= 6){
+            if(rot_y <= 7){
 
-                x = x - total_deg;
-                y = y - 10;
-
-             }else if(total_deg > 6 && total_deg < 8){
-
-                x = x - total_deg;
-                y = y - 10;
-
-             }else if(total_deg > 7 && total_deg < 9){
-
-                x = x - total_deg;
-                y = y - 11;
-
-             }else if(total_deg > 8 && total_deg < 10){
-
-                x = x - total_deg;
-                y = y - 12;
-
-             }else if(total_deg > 9 && total_deg < 11){
-
-                x = x - total_deg;
-                y = y - 8;
-             }
-
-            //end border rotation 45 deg(s) inits
+                y = y + rot_y;
+                x = x - rot_x;
+                
+            }
+            if(rec_rot > 40){
+                x = x + 4;
+            }
         }
 
     }
