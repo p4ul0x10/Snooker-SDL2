@@ -44,10 +44,12 @@ int main(int argc, char *argv[]){
     float vetAX[16], vetAY[16], vetV[16], vetF[16], init_x[16], init_y[16], return_x[1], return_y[1];
     float vetX[16];
     float vetY[16];
-
+    float p_x[1], p_y[1];
+    
     char random_units[1], mode_play[1];
     random_units[0] = 'f';
-
+    p_x[0] = 0;
+    p_y[0] = 0;
     //move branca lisa vars
 	Uint32 windowID = SDL_GetWindowID(win);
     SDL_Event event;
@@ -129,7 +131,7 @@ int main(int argc, char *argv[]){
                         vetV[15] = add_v;
                         vetF[15] = add_v;
     					activePlay = 1;
-    			
+    			     
 				    }
                     //end player if force != 0
                 
@@ -348,7 +350,7 @@ int main(int argc, char *argv[]){
             }
 
             rendEffects(renderer, e_x, e_y);
-            rendTaco(renderer, vetX, vetY, deg, deg_mode, df_x, df_y);
+            rendTaco(renderer, vetX, vetY, deg, deg_mode, df_x, df_y, p_x, p_y);
         }
         //end show in mode off
         
