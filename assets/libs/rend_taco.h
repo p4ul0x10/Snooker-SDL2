@@ -124,32 +124,106 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
                 x = x + divAL * ang_t; //200;
                 x = x + 0.36 * ang_t;
 
-                y = y + (74 / 20) * ang_t; //190;
+                y = y + 3.7 * ang_t; //190;
                 
-                x = x + 2*rcos;
-                y = y + 12.5*rsen;
                 deg = -ang;
             
-            }else if(ang_t > 20 && ang_t <= 40){
+            }else if(ang_t > 20 && ang_t <= 30){
 
-                x = x - 14;
-                x = x + 5.5;
-                x = x + divAL * ang_t; //200;
-
-                y = y + (72 / 20) * ang_t; //190;
-             
-                rot_x = 0.1 * 12;
-                y = y + 10*sin(rot_x);   
+                x = x + 2;
+                y = y + 74;
 
                 rec_ang = ang_t - 20;
-                
-                x = x + 0.22 * ang_t;
-                x = x + 0.20*rec_ang;
-                y = y + 0.22*ang_t; 
-                
+
+                y = y + 3.1 * rec_ang;
+                x = x + 1.4 * rec_ang;
+               
                 deg = -ang;
 
+            }else if(ang_t > 30 && ang_t <= 40){
+
+                x = x + 16;
+                y = y + 105;
+
+                rec_ang = ang_t - 30;
+
+                y = y + 3.3 * rec_ang;
+                x = x + 2.35 * rec_ang;
+
+                deg = -ang;
+            
             }else if(ang_t > 40 && ang_t <= 45){
+
+                x = x + 39.5;
+                y = y + 138;
+
+                rec_ang = ang_t - 40;
+
+                y = y + 2.6 * rec_ang;
+                x = x + 2.5 * rec_ang;
+
+                deg = -ang;
+
+            }else if(ang_t > 45 && ang_t <= 55){
+
+                x = x + 52;
+                y = y + 151;
+
+                rec_ang = ang_t - 45;
+
+                y = y + 2.3 * rec_ang;
+                x = x + 2.7 * rec_ang;
+
+                deg = -ang;
+
+            }else if(ang_t > 55 && ang_t <= 65){
+
+                x = x + 79;
+                y = y + 174;
+
+                rec_ang = ang_t - 55;
+
+                y = y + 1.8 * rec_ang;
+                x = x + 3.2 * rec_ang;
+
+                deg = -ang;
+
+            }else if(ang_t > 65 && ang_t <= 75){
+
+                x = x + 111;
+                y = y + 192;
+
+                rec_ang = ang_t - 65;
+
+                y = y + 1.3 * rec_ang;
+                x = x + 3.4 * rec_ang;
+
+                deg = -ang;
+
+            }else if(ang_t > 75 && ang_t <= 85){
+
+                x = x + 145;
+                y = y + 205;
+
+                rec_ang = ang_t - 75;
+
+                y = y + 0.6 * rec_ang;
+                x = x + 3.7 * rec_ang;
+
+                deg = -ang;
+
+            }else if(ang_t > 85){
+
+                x = x + 182;
+                y = y + 210;
+
+                rec_ang = ang_t - 85;
+
+                x = x + 3.5 * rec_ang;
+
+                deg = -ang;
+
+            }/*else if(ang_t > 40 && ang_t <= 45){
 
                 y = y + 138.5;
                 x = x + 39;
@@ -195,7 +269,7 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
 
                 x = x + 3.5 * rec_ang;
                 deg = -ang; 
-            }
+            }*/
             
         }       
 
