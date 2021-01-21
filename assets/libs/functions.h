@@ -50,7 +50,6 @@ void rendFor(SDL_Renderer *rendFor, float f){
 			f_rect.x = 810;
 			f_rect.y = y;
 
-			SDL_RenderDrawRect(rendFor, &f_rect);
 			SDL_RenderFillRect(rendFor, &f_rect);
 
 		}

@@ -23,7 +23,7 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
     SDL_SetRenderDrawColor(rendT, 0, 0, 0, 1);
 
     //start init calc limit deg
-    while (px < 26){
+    while (px < 826){
 
          if(divLA >= 1){ //div largura / altura >= 1 by -> divAL && bx +=1
            
@@ -82,7 +82,6 @@ void rendTaco(SDL_Renderer *rendT, float vetX[], float vetY[], float deg, float 
         pxxx_rect.x = bx;
         pxxx_rect.y = by;
 
-        SDL_RenderDrawRect(rendT, &pxxx_rect);
         SDL_RenderFillRect(rendT, &pxxx_rect);
         px += 1;
 
