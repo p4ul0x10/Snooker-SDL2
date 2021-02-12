@@ -286,7 +286,7 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 		dec_tfs = 100 - ang_dst;
 
 		calc_dst = (v[m1] / 100) * ang_dst;
-		calc_tfs = (v[m1] / 100) * (dec_tfs / 2);
+		calc_tfs = (v[m1] / 100) * dec_tfs;
 		mode_ang[0] = 'x';
 
 	}else if(ang_recover > 45 && m[m1] == 0 || m[m1] == 1){
@@ -311,7 +311,7 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 		dec_tfs = 100 - ang_dst;
 		
 		calc_dst = (v[m1] / 100) * ang_dst;
-		calc_tfs = (v[m1] / 100) * (dec_tfs / 2);
+		calc_tfs = (v[m1] / 100) * dec_tfs;
 
 		mode_ang[0] = 'y';
 	
@@ -328,6 +328,50 @@ void set_dest_xy(int m1, int m2, float px_wh, float px_hw, int m[], float x[], f
 
 		mode_ang[0] = 'y';
 	}
+
+	//start ta em shock em mais de 10 rolex
+	if(px >= py){
+
+		ang_dst = px - py;
+		dec_tfs = ang_dst * 100;
+
+		if(ang_45 <= 45){
+			
+			ang_recover = 100 - dec_tfs;
+			calc_dst = (v[m1] / 100) * ang_recover; //wh < hw 
+
+			calc_tfs = (v[m1] / 100) * dec_tfs;
+			
+		}else{
+
+			ang_recover = 100 - dec_tfs;
+			calc_dst = (v[m1] / 100) * dec_tfs; //wh > hw 
+
+			calc_tfs = (v[m1] / 100) * ang_recover;
+		}
+
+	}else if(px < py){
+		
+		ang_dst = py - px;
+		dec_tfs = ang_dst * 100;
+
+		if(ang_45 >= 45){
+	
+			ang_recover = 100 - dec_tfs;			
+			calc_dst = (v[m1] / 100) * ang_recover; //wh > hw
+
+			calc_tfs = (v[m1] / 100) * dec_tfs;	
+		
+		}else{
+
+			ang_recover = 100 - dec_tfs;
+			calc_dst = (v[m1] / 100) * ang_recover; //wh < hw 
+
+			calc_tfs = (v[m1] / 100) * dec_tfs;
+		
+		}
+	}
+	//end ta em schok e mais de 10 rolex
 
 	calc_tsfx = calc_dst; //val de transf sobre angulo eixo x
 
