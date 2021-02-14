@@ -24,7 +24,7 @@ void show_init_pos(int n[], float vetX[], float vetY[]){
 		}
 		//end increment step x -> limit left or right
 
-		x_inc = x + (1 * step_x) + (18 * step_x);
+		x_inc = x + (2 * step_x) + (18 * step_x);
 
 		if(count == 0){
 
@@ -37,9 +37,9 @@ void show_init_pos(int n[], float vetX[], float vetY[]){
 			step_y = count;
 
 			if(count == 1){
-				y_inc = y - 10 - 0.50;
+				y_inc = y - 10.5;
 			}else{
-				y_inc = y - 10 + 20 + 0.50;
+				y_inc = y + 10.5;
 			}
 
 			vetX[count] = x_inc;
@@ -50,19 +50,19 @@ void show_init_pos(int n[], float vetX[], float vetY[]){
 			//3 4 5
 
 			step_y = count - 2;
-			y_inc = y - 40 + (20 * step_y);
+			y_inc = y - 20 + (20 * step_y);
 
 			if(count == 3){
-				y_inc = y_inc - 0.50;
+				y_inc = y_inc - 20 - 0.5;
 			}
 
 			if(count == 4){
 
-				y_inc = y_inc;
+				y_inc = y + 0.5;
 			}
 
 			if(count == 5){
-				y_inc = y_inc + 2;
+				y_inc = y + 20 + 1;
 
 			}
 			vetX[count] = x_inc;
@@ -75,19 +75,19 @@ void show_init_pos(int n[], float vetX[], float vetY[]){
 			y_inc = y - 70 + (20 * step_y);
 
 			if(count == 6){
-				y_inc = y_inc - 0.50;
+				y_inc = y - 30 - 0.5;
 			}
 
 			if(count == 7){
-				y_inc = y_inc;
+				y_inc = y - 10 + 0.5;
 			}
 
 			if(count == 8){
-				y_inc = y_inc + 2;
+				y_inc = y + 10 + 1;
 			}
 
 			if(count == 9){
-				y_inc = y_inc + 3;
+				y_inc = y_inc + 2.5;
 			}
 
 			vetX[count] = x_inc;
@@ -99,7 +99,7 @@ void show_init_pos(int n[], float vetX[], float vetY[]){
 			y_inc = y - 40 + (20 * step_y);
 
 			if(count == 10){
-				y_inc = y_inc - 0.50;
+				y_inc = y - 40 - 0.50;
 			}
 			if(count == 11){
 				y_inc = y_inc;
@@ -108,10 +108,10 @@ void show_init_pos(int n[], float vetX[], float vetY[]){
 				y_inc = y_inc + 2;
 			}
 			if(count == 13){
-				y_inc = y_inc + 3;
+				y_inc = y_inc + 3.5;
 			}
 			if(count == 14){
-				y_inc = y_inc + 4;
+				y_inc = y_inc + 4.5;
 			}
 
 			vetX[count] = x_inc;
@@ -231,7 +231,7 @@ void check_point(int i_key, int vetM[], float vetX[], float vetY[], float ini_x[
 
 	if(vetX[i_key] < 42 && y_d > 390 || vetX[i_key] > 837 && y_d > 390){
 
-		if(y_d > 392 && vetX[i_key] < 42 || y_d > 392 && vetX[i_key] > 837){
+		if(y_d > 395 && vetX[i_key] < 42 || y_d > 395 && vetX[i_key] > 837){
 
 			vetX[i_key] = 0;
 			vetY[i_key] = 0;
@@ -241,7 +241,7 @@ void check_point(int i_key, int vetM[], float vetX[], float vetY[], float ini_x[
 		}
 	}
 
-	if(vetX[i_key] <= 45 && y_d >= 401 || vetX[i_key] >= 840 && y_d >= 401){
+	if(vetX[i_key] <= 45 && y_d >= 405 || vetX[i_key] >= 840 && y_d >= 405){
 
 		vetX[i_key] = 0;
 		vetY[i_key] = 0;
@@ -296,7 +296,7 @@ void check_table(int i_key, int vetM[], float vetX[], float vetY[], float ini_x[
 
 		if(vetM[i_key] != 100){
 
-			if(vetX[i_key] <= 42 && d_y <= 390){
+			if(vetX[i_key] <= 42 && d_y <= 402){
 
 				vetM[i_key] = 3; //+y +x
 				ini_x[i_key] = vetX[i_key];
@@ -346,7 +346,7 @@ void check_table(int i_key, int vetM[], float vetX[], float vetY[], float ini_x[
 
 		if(vetM[i_key] != 100){
 
-			if(vetX[i_key] >= 837 && d_y <= 390){
+			if(vetX[i_key] >= 837 && d_y <= 402){
 
 				vetM[i_key] = 1; //+y -x
 				ini_x[i_key] = vetX[i_key];
@@ -388,8 +388,7 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 	//start engine motion
 	// m1 -> bola que colide inicialmente, a uma ou mais - m2 alvo que recebe choque da m1
 	float check_x, check_y, next_x, next_y, calc_nx, calc_ny, rec_pos_x, rec_pos_y;
-	float x_pos, y_pos, rec_ax, rec_ay, rec_prox;
-	int in_k;
+	float rec_ax, rec_ay, rec_prox, dx, dy, radius_x1, radius_y1, radius_x2, radius_y2, distance;
 	bool size_over;
 	size_over = false;
 
@@ -401,7 +400,7 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 
 				if(m1 != m2 && n[m1] != n[m2] && x[m2] != 0 && y[m2] != 0){
 
-					if(center_x[m1] <= center_x[m2] && center_y[m1] >= center_y[m2]){
+					/*if(center_x[m1] <= center_x[m2] && center_y[m1] >= center_y[m2]){
 
 						check_x = center_x[m2] - center_x[m1];
 						check_y = center_y[m1] - center_y[m2];
@@ -425,26 +424,39 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 						check_y = center_y[m2] - center_y[m1];
 						mode_add[0] = '+';
 						mode_add[1] = '-';
-					}
+					}*/
+					dx = x[m1] - x[m2];
+					dy = y[m1] - y[m2];
 					
-					if(check_x <= 20 && check_y <= 20 && v[m1] != 0){ //check_x & check_y limit for shock
+					distance = sqrt(dx*dx + dy*dy);
+				
+					if(distance < 20 && v[m1] != 0){ //check_x & check_y limit for shock
 
 						float conv_ang, calc_ang_x, calc_ang_y, conv_ang_x, conv_ang_y, px_hw, px_wh;
 						float prox, limit_prox, rec_ang_x, rec_ang_y;
 
-						conv_ang = 45 / 20; //45 degs / size x y - > width & height
+						conv_ang = 20 - distance; //45 degs / size x y - > width & height
 
-						calc_ang_x = check_x * conv_ang; //find angle (degs) x
-						calc_ang_y = check_y * conv_ang; //find angle (degs) y
+						if(x[m1] >= x[m2]){
+							calc_ang_x = x[m1] - x[m2]; //find angle (degs) x
+						}else{
+							calc_ang_x = x[m2] - x[m1]; //find angle (degs) x
+						}
 
+						if(y[m1] >= y[m2]){
+							calc_ang_y = y[m1] - y[m2]; //find angle (degs) y
+						}else{
+							calc_ang_y = y[m2] - y[m1]; //find angle (degs) y
+						}
+						
 						conv_ang_x = calc_ang_x / 45; //convert degs in px - > x
 						conv_ang_y = calc_ang_y / 45; //convert degs in px -> y
 
 						px_hw = conv_ang_y / conv_ang_x; // px x -> calc width / height
 						px_wh = conv_ang_x / conv_ang_y; // px y -> calc height / width 
 	 
-						rec_ang_x = 20 - check_x; // recover angle x -> limit de profundidade
-						rec_ang_y = 20 - check_y; //recover angle y -> limit de profundidade
+						rec_ang_x = 20 - 20; // recover angle x -> limit de profundidade
+						rec_ang_y = 20 - 20; //recover angle y -> limit de profundidade
 
 						if(ini_x[m2] == 0 && ini_y[m2] == 0){
 							
@@ -460,7 +472,7 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 								prox = x[m1] + 20; 
 								limit_prox = x[m2] + rec_ang_x;
 
-								if(prox >= limit_prox){
+								//if(prox >= limit_prox){
 									
 									//start recover pos x y
 									rec_ax = (x[m1] - ax[m1] * v[m1]) + 10;
@@ -480,15 +492,15 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 									//end recover pos x y
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 
 							}else{
 
 								prox = y[m1];
 								limit_prox = (y[m2] + 20) - rec_ang_y;
 
-								if(prox <= limit_prox){
+								//if(prox <= limit_prox){
 
 									//start recover pos x y(degs)
 									rec_ax = (x[m1] - ax[m1] * v[m1]) + 10;
@@ -508,8 +520,8 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 									//end recover pos x y (degs)
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 							}
 
 						}else if(m[m1] == 1){ // +y -x 
@@ -519,7 +531,7 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 								prox = x[m1];
 								limit_prox = (x[m2] + 20) - rec_ang_x;
 
-								if(prox >= limit_prox){
+								//if(prox >= limit_prox){
 
 									rec_ax = (x[m1] + v[m1] * ax[m1]) + 10;
 									rec_ay = (y[m1] - v[m1] * ay[m1]) + 10;
@@ -538,15 +550,15 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 
 							}else{
 
 								prox = y[m1] + 20;
 								limit_prox = y[m2] + rec_ang_y;
 
-								if(prox <= limit_prox){
+								//if(prox <= limit_prox){
 
 									rec_ax = (x[m1] + v[m1] * ax[m1]) + 10;
 									rec_ay = (y[m1] - v[m1] * ay[m1]) + 10;
@@ -565,8 +577,8 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 							}
 
 						}else if(m[m1] == 2){ // -y -x
@@ -576,17 +588,18 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 								prox = x[m1];
 								limit_prox = (x[m2] + 20) - rec_ang_x;
 
-								if(prox <= limit_prox){
+								//if(prox <= limit_prox){
 
-									rec_ax = (x[m1] + m[m1] * ax[m1]) + 10;
-									rec_ay = (y[m1] + m[m1] * ay[m1]) + 10;
-
+									rec_ax = (x[m1] + v[m1] * ax[m1]) + 10;
+									rec_ay = (y[m1] + v[m1] * ay[m1]) + 10;
+									//rec_ax = center_x[m1];
+									//rec_ay = center_y[m1];
 									if(rec_ax >= center_x[m2] && rec_ay >= center_y[m2]){
 										check_x = rec_ax - center_x[m2];
 										check_y = rec_ay - center_y[m2];
-									}else if(rec_ax >= center_y[m2] && rec_ay < center_y[m2]){
+									}else if(rec_ax >= center_x[m2] && rec_ay < center_y[m2]){
 										check_x = rec_ax - center_x[m2];
-										check_y = center_y[m2] - rec_ax;
+										check_y = center_y[m2] - rec_ay;
 									}else if(rec_ax <= center_x[m2] && rec_ay <= center_y[m2]){
 										check_x = center_x[m2] - rec_ax;
 										check_y = center_y[m2] - rec_ay;
@@ -595,25 +608,26 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 
 							}else{
 
 								prox = y[m1];
 								limit_prox = (y[m2] + 20) - rec_ang_y;
 								
-								if(prox <= limit_prox){
+								//if(prox <= limit_prox){
 									
-									rec_ax = (x[m1] + m[m1] * ax[m1]) + 10;
-									rec_ay = (y[m1] + m[m1] * ay[m1]) + 10;
-
+									rec_ax = (x[m1] + v[m1] * ax[m1]) + 10;
+									rec_ay = (y[m1] + v[m1] * ay[m1]) + 10;
+									//rec_ax = center_x[m1];
+									//rec_ay = center_y[m1];
 									if(rec_ax >= center_x[m2] && rec_ay >= center_y[m2]){
 										check_x = rec_ax - center_x[m2];
 										check_y = rec_ay - center_y[m2];
-									}else if(rec_ax >= center_y[m2] && rec_ay < center_y[m2]){
+									}else if(rec_ax >= center_x[m2] && rec_ay < center_y[m2]){
 										check_x = rec_ax - center_x[m2];
-										check_y = center_y[m2] - rec_ax;
+										check_y = center_y[m2] - rec_ay;
 									}else if(rec_ax <= center_x[m2] && rec_ay <= center_y[m2]){
 										check_x = center_x[m2] - rec_ax;
 										check_y = center_y[m2] - rec_ay;
@@ -622,8 +636,8 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 							}
 
 						}else if(m[m1] == 3){ // +y +x
@@ -633,10 +647,10 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 								prox = x[m1] + 20;
 								limit_prox = x[m2] + rec_ang_x;
 
-								if(prox >= limit_prox){
+								//if(prox >= limit_prox){
 
-									rec_ax = (x[m1] - m[m1] * ax[m1]) + 10;
-									rec_ay = (y[m1] - m[m1] * ay[m1]) + 10;
+									rec_ax = (x[m1] - v[m1] * ax[m1]) + 10;
+									rec_ay = (y[m1] - v[m1] * ay[m1]) + 10;
 
 									if(rec_ax <= center_x[m2] && rec_ay <= center_y[m2]){
 										check_x = center_x[m2] - rec_ax;
@@ -653,18 +667,18 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 
 							}else{	
 
 								prox = y[m1] + 20;
 								limit_prox = y[m2] + rec_ang_y;
 
-								if(prox >= limit_prox){
+								//if(prox >= limit_prox){
 									
-									rec_ax = (x[m1] - m[m1] * ax[m1]) + 10;
-									rec_ay = (y[m1] - m[m1] * ay[m1]) + 10;
+									rec_ax = (x[m1] - v[m1] * ax[m1]) + 10;
+									rec_ay = (y[m1] - v[m1] * ay[m1]) + 10;
 
 									if(rec_ax <= center_x[m2] && rec_ay <= center_y[m2]){
 										check_x = center_x[m2] - rec_ax;
@@ -681,8 +695,8 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 									px_wh = check_x / check_y;
 									px_hw = check_y / check_x;
 
-									set_dest_xy(m1, m2, px_wh, px_hw, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
-								}
+									set_dest_xy(m1, m2, px_wh, px_hw, rec_ax, rec_ay, m, x, y, ini_x, ini_y, ax, ay, v, f, ex, ey);
+								//}
 							}
 
 						}
@@ -754,7 +768,7 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 	    		if(x[v_key] != 0 && y[v_key] != 0){
 
 	    			//start add mode 2 = -y -x
-	    			x[v_key] = x[v_key] - v[v_key] * ax[v_key];;
+	    			x[v_key] = x[v_key] - v[v_key] * ax[v_key];
 	    			y[v_key] = y[v_key] - v[v_key] * ay[v_key];
 	    			//end add mode 2 = -y -x
 	    			check_table(v_key, m, x, y, ini_x, ini_y);
@@ -775,7 +789,7 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 
 	    	}
 
-	    	if(v[v_key] >= 0.0 && m[v_key] < 4){
+	    	if(v[v_key] > 0.0 && m[v_key] < 4){
 
 	    		float calc_v, calc_fv, calc_dst, v_move, max_v, dec_m, dec_f, percent_fs, rec_percent;
 	    		float ey_point, ex_point;
@@ -783,17 +797,17 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 	    		max_v = f[v_key];
 	    		v_move = v[v_key];
 
-	    		dec_m = 0.05; //massa 1
-	    		dec_f = 0.2; //massa 02
+	    		dec_m = 0.1; //massa 1
+	    		dec_f;
 
 	    		calc_dst = f[v_key] - v[v_key]; //total distancia percorrida -> max init - f speed now
 
 	    		//percent_fs = (calc_dst / f[v_key]) * 100; // percentual de perda de forca
-	    		percent_fs = (v[v_key] / f[v_key]) * 100;
+	    		percent_fs = (v[v_key] / f[v_key]) * 10;
 
-	    		rec_percent = 100 - percent_fs; // recupera porcentagem crescente 0 ~ 100
-
-	    		calc_v = (dec_m / 100) * percent_fs; // calcula porcentual de perda atual, baseado forca atual
+	    		rec_percent = f[v_key] - v[v_key]; // recupera porcentagem crescente 0 ~ 100
+	    		dec_f = f[v_key] - rec_percent;
+	    		calc_v = dec_m * dec_f; // calcula porcentual de perda atual, baseado forca atual
 
 	    		//v[v_key] = v[v_key] - calc_fv;
 	    		v[v_key] = v[v_key] - dec_m;
@@ -811,12 +825,12 @@ void engine_show_all(SDL_Renderer *rendEngine, int n[], int m[], float v[], floa
 	    		ay[v_key] = 0;
 	    	}
 
-	    	if(m[v_key] == 100 && f[v_key] > 0){
+	    	if(m[v_key] == 100 && v[v_key] > 0.1){
 
-	    		ini_x[v_key] = 0;
-	    		ini_y[v_key] = 0;
 	    		f[v_key] = 0;
 	    		v[v_key] = 0;
+	    		ini_x[v_key] = 0;
+	    		ini_y[v_key] = 0;
 	    		ax[v_key] = 0;
 	    		ay[v_key] = 0;
 
