@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
     //move branca lisa vars
     float f_cue, calc_cue, divAL, divLA, add_v;
     float f = 0, al;
-    int cont_play = 0, init_mode[1], vetN[16], vetM[16], all_k[1] ,e_x[1], e_y[1];
+    int cont_play = 0, init_mode[1], vetN[16], vetM[16], all_k[1], e_x[1], e_y[1];
     int cont_units[1], cont_ball[15], cont_p[1], cont_m[1], cont_all[1];
     float eq_y, div_eq_y, percent_y_1, percent_y_2, percent_y;
     float vetAX[16], vetAY[16], vetV[16], vetF[16], init_x[16], vang[16], init_y[16], return_x[1], return_y[1];
@@ -134,7 +134,12 @@ int main(int argc, char *argv[]){
                     change_mode[0] = 't'; 
                     srand (time(NULL));
                     activePlay = rand() % 2+1;
-
+                
+                    //start init coord x y effect img
+                    e_y[0] = (40 / 2) + 465;
+                    e_x[0] = (40 / 2) + 750;
+                    //end init coord x y effect img
+                
                 }else if(event.key.keysym.sym == SDLK_SPACE && mode_play[0] != 'f'){
 
                     if(f > 0){
@@ -393,11 +398,6 @@ int main(int argc, char *argv[]){
             check_units(cont_m, cont_p, vetN, vetX, vetY, mode_player);
             cont_play++;
             change_mode[0] = 'n';
-            
-            if(cont_play >= 3){
-                //SDL_DestroyWindow(win);
-                //SDL_Quit();
-            }
 
             sleep(2);
         }
@@ -409,9 +409,9 @@ int main(int argc, char *argv[]){
 
             if(change_mode[0] == 'n'){
 
-                //SDL_Quit();
-                //SDL_DestroyWindow(win);
-
+                int get_y, get_x;
+                get_y = e_y[0];
+                get_x = e_x[0];
                 if(all_k[0] >= 15){
 
                     //activePlay = 0;
@@ -621,7 +621,7 @@ int main(int argc, char *argv[]){
         //end show in mode off
 
         //Circle test
-        /*int circle_x;
+        int circle_x;
         int circle_y;
         int circle_radius;
 
@@ -632,17 +632,19 @@ int main(int argc, char *argv[]){
         int c = 0;
         circle_radius = 10;
 
-        while(c < 16){
+        /*while(c < 16){
 
             circle_x = vetX[c] + 10;
             circle_y = vetY[c] + 10;
             
-            for (float t = 1; t <= 360; t += 0.1){
+            for (float t = 1; t <= 360; t += 0.01){
 
                 point_x = circle_x + circle_radius * cos(t);
                 point_y = circle_y + circle_radius * sin(t);
                 
+               
                 SDL_RenderDrawPoint(renderer, point_x, point_y);
+                
                 //SDL_RenderFillRect(renderer, &pxxx_rect);
             }
 

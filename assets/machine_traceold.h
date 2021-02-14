@@ -1,4 +1,73 @@
+/*
 
+while(t <= 10){
+
+					while(tt <= 10 && c1 < 8){
+
+						cmp_x = cx - (mx[c1] + 10);
+						cmp_y = cy - (my[c1] + 10);
+
+						hw = cmp_y / cmp_x;
+						wh = cmp_x / cmp_y;
+
+						if(hw >= 1){
+							hw = 1;
+						}else{
+							wh = 1;
+						}
+
+						int aux = 0;
+						while(aux < 1000){
+
+							if(auxcx >= 49 && auxcx < 51 && auxcy > 49 && auxcy <= 50){
+
+								target_x = mx[c1]+20;
+								target_y = cy;
+								
+								cmp_xb = x[15] - target_x;
+								cmp_yb = (y[15] + 10) - target_y;
+
+								bh = cmp_yb / cmp_xb;
+								bw = cmp_xb / cmp_yb;
+
+								if(bw >= 1){
+									bw = 1;
+								}else{
+									bh = 1;
+								}
+
+								v[15] = 10*1.4;
+								f[15] = 10*1.4;
+								auxy[15] = bh;
+								auxx[15] = bw;
+								m[15] = 2;
+								t = 11;
+								tt = 11;
+								c1 = 8;
+								aux = 1001;
+								//SDL_Quit();
+							}
+
+							auxcx -= wh;
+							auxcy -= hw;
+							aux++;
+						}
+
+						auxcx = mx[c1] + 10;
+						auxcy = my[c1] + 10;
+
+						cy += tt;
+						tt += 0.01;
+					}
+
+					cx = mx[c1] + 10;
+					cy = my[c1] + 10;
+					t += 0.01;
+					cx += t;
+					tt = 0;
+
+				}
+*/
 void trace_route_xy(char type_route[], int type_v[], int m_num, int vetN[], float x[], float y[], float hw, float wh, int b_checked[], float ax[], float ay[], char mode_player[]){
 
 	//trace_route_xy(vetN, x, y, hw, wh, mode_player);
